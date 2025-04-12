@@ -1,38 +1,60 @@
-import { useEffect, useState } from 'react'
-import img from './assets/IMG_8464.jpg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import Gallery from './components/Gallery';
+import './App.css';
 
-const TARGET_DATE = new Date('2025-08-01T00:00:00')
+const TARGET_DATE = new Date('2025-08-01T00:00:00');
 
-function App() {
-  const [weeksLeft, setWeeksLeft] = useState(null)
+const App = () => {
+  const [timeLeft, setTimeLeft] = useState(null);
+  const [showInDays, setShowInDays] = useState(() => {
+    const stored = localStorage.getItem('showInDays');
+    return stored === 'true';
+  });
 
   useEffect(() => {
-    const calculateWeeksLeft = () => {
-      const now = new Date()
-      const diffMs = TARGET_DATE - now
-      const diffWeeks = diffMs / (1000 * 60 * 60 * 24 * 7)
-      setWeeksLeft(Math.max(0, Math.floor(diffWeeks)))
-    }
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const diffMs = TARGET_DATE - now;
+      const diffDays = diffMs / (1000 * 60 * 60 * 24);
+      const diffWeeks = diffDays / 7;
 
-    calculateWeeksLeft()
-    const interval = setInterval(calculateWeeksLeft, 1000 * 60 * 60)
-    return () => clearInterval(interval)
-  }, [])
+      setTimeLeft({
+        days: Math.max(0, Math.floor(diffDays)),
+        weeks: Math.max(0, Math.floor(diffWeeks)),
+      });
+    };
+
+    calculateTimeLeft();
+    const interval = setInterval(calculateTimeLeft, 1000 * 60 * 60);
+    return () => clearInterval(interval);
+  }, []);
+
+  const toggleUnit = () => {
+    setShowInDays(prev => {
+      const newValue = !prev;
+      localStorage.setItem('showInDays', newValue);
+      return newValue;
+    });
+  };
 
   return (
-    <div className="app-container">
+    <div className="app-wrapper">
       <div className="content">
-        <img src={img} className="my-house" alt="my-house" />
         <h1>Femte Villavägen 12</h1>
         <p className="subtitle">Tillträde: 1 augusti 2025</p>
+        <Gallery />
         <div className="countdown-box">
-          <h2>{weeksLeft} veckor kvar</h2>
+          {timeLeft && (
+            <h2>{showInDays ? `${timeLeft.days} dagar` : `${timeLeft.weeks} veckor`} kvar</h2>
+          )}
           <p className="countdown-sub">⏳ tills du får nycklarna</p>
+          <button className="toggle-button" onClick={toggleUnit}>
+            Visa i {showInDays ? 'veckor' : 'dagar'}
+          </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
