@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Gallery.css';
 
-const images = Object.values(import.meta.glob('../assets/*.PNG', { eager: true, as: 'url' }));
+const images = Object.values(import.meta.glob('../assets/*.webp', { eager: true, as: 'url' }));
 
 function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
