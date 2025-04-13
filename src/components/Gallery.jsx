@@ -3,8 +3,8 @@ import './Gallery.css';
 
 const images = Object.values(import.meta.glob('../assets/*.webp', { eager: true, as: 'url' }));
 
-function Gallery() {
-  const [currentIndex, setCurrentIndex] = useState(5);
+const Gallery = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const prev = () => {
@@ -65,6 +65,6 @@ function Gallery() {
       )}
     </>
   );
-}
+};
 
 export default Gallery;

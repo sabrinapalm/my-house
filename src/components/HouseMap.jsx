@@ -13,7 +13,7 @@ const HouseMap = () => {
           <li>🌞 Solceller & laddbox för elbil</li>
           <li>🧖‍♂️ Bastu, förråd, garage & altan i söderläge</li>
           <li>🏞️ Nära naturreservatet Delsjön & Härlanda tjärn</li>
-          <li>🏫 Gångavstånd till förskola och skolor</li>
+          <li>🛒 Gångavstånd till matvarubutik</li>
           <li>🚌 Svart Express-buss direkt till Göteborg</li>
         </ul>
       </div>
