@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Gallery from './components/Gallery';
+import HouseMap from './components/HouseMap';
 import './App.css';
 
 const TARGET_DATE = new Date('2025-08-01T00:00:00');
@@ -39,19 +40,26 @@ const App = () => {
 
   return (
     <div className="app-wrapper">
-      <div className="content">
+      <header className="header">
         <h1>Femte Villavägen 12</h1>
         <p className="subtitle">Tillträde: 1 augusti 2025</p>
-        <Gallery />
-        <div className="countdown-box">
-          {timeLeft && (
-            <h2>{showInDays ? `${timeLeft.days} dagar` : `${timeLeft.weeks} veckor`} kvar</h2>
-          )}
-          <p className="countdown-sub">⏳ tills du får nycklarna</p>
-          <button className="toggle-button" onClick={toggleUnit}>
-            Visa i {showInDays ? 'veckor' : 'dagar'}
-          </button>
+      </header>
+
+      <div className="main-columns">
+        <div className="content">
+          <Gallery />
+          <div className="countdown-box">
+            {timeLeft && (
+              <h2>{showInDays ? `${timeLeft.days} dagar` : `${timeLeft.weeks} veckor`} kvar</h2>
+            )}
+            <p className="countdown-sub">⏳ tills du får nycklarna</p>
+            <button className="toggle-button" onClick={toggleUnit}>
+              Visa i {showInDays ? 'veckor' : 'dagar'}
+            </button>
+          </div>
         </div>
+
+        <HouseMap />
       </div>
     </div>
   );

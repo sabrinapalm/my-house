@@ -4,7 +4,8 @@ import './Gallery.css';
 const images = Object.values(import.meta.glob('../assets/*.webp', { eager: true, as: 'url' }));
 
 function Gallery() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(5);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const prev = () => {
     setCurrentIndex(prevIndex => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
@@ -14,13 +15,14 @@ function Gallery() {
     setCurrentIndex(prevIndex => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
   };
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   useEffect(() => {
     const handleKeyDown = e => {
-      if (e.key === 'ArrowLeft') {
-        prev();
-      } else if (e.key === 'ArrowRight') {
-        next();
-      }
+      if (e.key === 'ArrowLeft') prev();
+      else if (e.key === 'ArrowRight') next();
+      else if (e.key === 'Escape') closeModal();
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -28,21 +30,40 @@ function Gallery() {
   }, []);
 
   return (
-    <div className="slider-container">
-      <button className="nav-button" onClick={prev} aria-label="Previous">
-        ‹
-      </button>
+    <>
+      <div className="slider-container">
+        <button className="nav-button" onClick={prev} aria-label="Previous">
+          ‹
+        </button>
 
-      <img
-        src={images[currentIndex]}
-        alt={`Slideshow image ${currentIndex + 1}`}
-        className="slider-image"
-      />
+        <img
+          src={images[currentIndex]}
+          alt={`Slideshow image ${currentIndex + 1}`}
+          className="slider-image"
+          onClick={openModal}
+          style={{ cursor: 'zoom-in' }}
+        />
 
-      <button className="nav-button" onClick={next} aria-label="Next">
-        ›
-      </button>
-    </div>
+        <button className="nav-button" onClick={next} aria-label="Next">
+          ›
+        </button>
+      </div>
+
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <button className="close-button" onClick={closeModal}>
+              ✕
+            </button>
+            <img
+              src={images[currentIndex]}
+              alt={`Large view of image ${currentIndex + 1}`}
+              className="modal-image"
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
