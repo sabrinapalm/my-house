@@ -1,26 +1,13 @@
-.house-info-map-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.house-facts {
-    flex: 1 1 300px;
-}
-
-.house-facts ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.house-facts li {
-    margin-bottom: 0.6rem;
-    font-size: 1rem;
-}
-
 .house-map {
     flex: 1 1 400px;
     min-height: 300px;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 500px;
+}
+
+.house-info-map-wrapper {
+    width: 100%;
 }
