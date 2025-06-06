@@ -12,7 +12,7 @@ const HouseMap = () => {
           loading="lazy"
           allowFullScreen
           referrerPolicy="no-referrer-when-downgrade"
-          src="https://maps.google.com/maps?q=Femte+Villav%C3%A4gen+12+S%C3%A4vedalen+Sweden&z=17&t=k&output=embed"
+          src="https://maps.google.com/maps?q=Femte+Villav%C3%A4gen+12+S%C3%A4vedalen+Sweden&z=19&t=k&output=embed"
         ></iframe>
       </div>
     </div>

@@ -15,7 +15,7 @@ const CountDown = () => {
       const now = new Date();
       const diffMs = TARGET_DATE - now;
       const diffDays = diffMs / (1000 * 60 * 60 * 24);
-      const diffWeeks = diffDays / 7;
+      const diffWeeks = Math.max(0, Math.ceil(diffDays / 7));
 
       setTimeLeft({
         days: Math.max(0, Math.floor(diffDays)),
@@ -36,15 +36,22 @@ const CountDown = () => {
     });
   };
 
+  const shouldShowDays = timeLeft && timeLeft.weeks < 1;
+
   return (
     <div className="countdown-box">
       {timeLeft && (
-        <h2>{showInDays ? `${timeLeft.days} dagar` : `${timeLeft.weeks} veckor`} kvar</h2>
+        <h2>
+          {showInDays || shouldShowDays ? `${timeLeft.days} dagar` : `${timeLeft.weeks} veckor`}{' '}
+          kvar
+        </h2>
       )}
       <p className="countdown-sub">⏳ tills du får nycklarna</p>
-      <button className="toggle-button" onClick={toggleUnit}>
-        Visa i {showInDays ? 'veckor' : 'dagar'}
-      </button>
+      {!shouldShowDays && (
+        <button className="toggle-button" onClick={toggleUnit}>
+          Visa i {showInDays ? 'veckor' : 'dagar'}
+        </button>
+      )}
     </div>
   );
 };

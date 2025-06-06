@@ -4,7 +4,7 @@ import './Gallery.css';
 const images = Object.values(import.meta.glob('../assets/*.webp', { eager: true, as: 'url' }));
 
 const Gallery = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(12);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const prev = () => {
