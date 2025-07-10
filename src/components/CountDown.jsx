@@ -10,7 +10,8 @@ const CountDown = () => {
   useEffect(() => {
     const calculateDays = () => {
       const now = new Date();
-      const diff = Math.max(0, Math.floor((TARGET_DATE - now) / (1000 * 60 * 60 * 24)));
+      const diff = Math.max(0, Math.ceil((TARGET_DATE - now) / (1000 * 60 * 60 * 24)));
+
       setDaysLeft(diff);
     };
 
